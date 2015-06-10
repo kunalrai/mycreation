@@ -1,6 +1,6 @@
-/// <reference path="../../assets/js/typings/jquery/jquery.d.ts" />
-/// <reference path="../qunit.d.ts" />
-/// <reference path="../../assets/js/evaluator/acidaes.exp-eval.ts" />
+/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../typings/qunit/qunit.d.ts" />
+/// <reference path="../lib/acidaes.exp-eval.ts" />
 
 module Acidaes.Evaluator.Tests {
 
