@@ -11,10 +11,6 @@ var Acidaes;
                 function EvaluatorTest() {
                 }
                 EvaluatorTest.prototype.Parser = function (assert) {
-                    //var binder = new PageModelBinder("page", {}); 
-                    //binder.Bind("a", 1);
-                    //binder.Bind("b", 2);
-                    //var evaluator = new Acidaes.Evaluator.ExpressionEvaluator(binder);
                     var parser = new Acidaes.Evaluator.ExpressionParser();
                     var result = parser.Parse("a");
                     assert.ok(result != null, "Parsed Identifier");
@@ -147,13 +143,26 @@ var Acidaes;
                     result = evaluator.Evaluate(expression);
                     assert.ok(result == 3, "b.where(e==$a[2]).select(e).sum()");
                 };
+                EvaluatorTest.prototype.MyEvaluator = function (assert) {
+                    var binder = new Evaluator.PageModelBinder("page", {});
+                    binder.Bind("EmployeeType", "Salaried");
+                    binder.Bind("IndustryType", "IT");
+                    var evaluator = new Acidaes.Evaluator.ExpressionEvaluator(binder, null);
+                    var parser = new Acidaes.Evaluator.ExpressionParser();
+                    var expression = parser.Parse("(EmployeeType == 'Salaried' && IndustryType == 'IT') || (EmployeeType == 'Student' && IndustryType=='College')");
+                    var result = evaluator.Evaluate(expression);
+                    console.log(expression);
+                    console.log(result);
+                    assert.ok(result == true, "Result should be true");
+                };
                 EvaluatorTest.prototype.Register = function () {
                     QUnit.module("Evaluator");
                     //QUnit.test("Parser", this.Parser);
                     //QUnit.test("Evaluator", this.Evaluator);
                     //QUnit.test("Binder", this.Binder);
                     //QUnit.test("Aggregate", this.Aggregate);
-                    QUnit.test("GlobalContext", this.GlobalContext);
+                    //QUnit.test("GlobalContext", this.GlobalContext);
+                    QUnit.test("MyEvaluator", this.MyEvaluator);
                 };
                 return EvaluatorTest;
             })();
@@ -165,4 +174,4 @@ $(function () {
     var evaluatorTests = new Acidaes.Evaluator.Tests.EvaluatorTest();
     evaluatorTests.Register();
 });
-//# sourceMappingURL=acidaes.exp-eval.test.js.map
+//# sourceMappingURL=myTest.js.map
